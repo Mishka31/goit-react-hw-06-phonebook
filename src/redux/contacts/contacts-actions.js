@@ -1,20 +1,24 @@
 import types from "./contacts-type.js";
 import { v4 as uuidv4 } from "uuid";
 
-export const formSubmitHandler = (id) => ({
+export const addContact = ({ name, number }) => ({
   type: types.ADDSUBMIT,
   payload: {
-    contacts: [...contacts, { id: uuidv4(), ...data }],
+    id: uuidv4(),
+    name,
+    number,
   },
 });
 
-// export const onDelete = (id) => ({
-//   type: types.DELETE,
-//   payload: value,
-// });
-// export const onFind = (e) => ({
-//   type: types.FIND,
-//   payload: value,
-// });
+export const deleteContact = (id) => ({
+  type: types.DELETE,
+  payload: id,
+});
 
-export default { formSubmitHandler };
+export const changeFilter = (value) => ({
+  type: types.FIND,
+  payload: value,
+});
+
+// eslint-disable-next-line
+export default { addContact, deleteContact, changeFilter };
