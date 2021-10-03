@@ -5,7 +5,19 @@ import { createReducer } from "@reduxjs/toolkit";
 import actions from "./contacts-actions.js";
 
 const items = createReducer([], {
-  [actions.addContact]: (state, { payload }) => [...state, payload],
+  [actions.addContact]: (state, { payload }) => {
+    const payloadLowerCase = payload.name.toLowerCase();
+    const findItem = state.find(
+      (contact) => contact.name.toLowerCase() === payloadLowerCase
+    );
+    if (findItem) {
+      alert(`${findItem.name} is already in contacts`);
+      return state;
+    } else {
+      return [...state, payload];
+    }
+  },
+
   [actions.deleteContact]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 });
